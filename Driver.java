@@ -1,13 +1,49 @@
+
 public class Driver 
 {
 	public static void main(String[] args)
 	{
-		String s = "hello";
+		String s = "124";
 		String s2 = "elephant";
-		Driver.removeVowels(s);
-		Driver.removeConsonants(s);
-		Driver.removeDigits(s);
-		
+		System.out.println(Driver.stringToInt(s));
+	}
+	
+	//return the integer version of the char parameter
+	static int charToInt(char c)
+	{
+		return "0123456789".indexOf(c);
+	}
+	
+	//Converts s, which is a string representation
+	//of an int into an int representation
+	//"124" -> 124
+	static int stringToInt(String s)
+	{
+		int currentPlace = 1;
+		int runningTotal = 0;
+		int c = 0;
+		for(int i = s.length() -1; i >= 0; i--)
+		{
+			c = Driver.charToInt(s.charAt(i));
+			c = c * currentPlace;
+			runningTotal = runningTotal + c;
+			currentPlace = currentPlace * 10;	
+		}
+		return runningTotal;	
+	}
+	
+	static String removeChars(String s, String charsToRemove)
+	{
+		String answer = "";
+		for(int i = 0; i < s.length(); i++)
+		{
+			//should we keep the current character
+			if(charsToRemove.indexOf(s.charAt(i)) == -1)
+			{
+				answer = answer + s.charAt(i);
+			}
+		}
+		return answer;
 	}
 	
 	//returns a new String with all of the vowels
@@ -15,37 +51,7 @@ public class Driver
 	//"hello" -> hll
 	static String removeVowels(String s)
 	{
-		String answer = "";
-		for(int i = 0; i < s.length(); i++)
-		{
-			if(s.charAt(i) == 'a')
-			{
-				answer = answer;
-			}
-			else if(s.charAt(i) == 'e')
-			{
-				answer = answer;
-			}
-			else if(s.charAt(i) == 'i')
-			{
-				answer = answer;
-			}
-			else if(s.charAt(i) == 'o')
-			{
-				answer = answer;
-			}
-			else if(s.charAt(i) == 'u')
-			{
-				answer = answer;
-			}
-			else
-			{
-				answer = answer + s.charAt(i);
-			}
-		}
-		System.out.println(answer);
-		return answer;
-		
+		return Driver.removeChars(s, "aeiouAEIOU");
 	}
 	
 	//returns a new String with all of the consonants
@@ -53,37 +59,7 @@ public class Driver
 	//"hello" -> eo
 	static String removeConsonants(String s)
 	{
-		String answer = "";
-		for(int i = 0; i < s.length(); i++)
-		{
-			if(s.charAt(i) == 'a')
-			{
-				answer = answer + s.charAt(i);
-			}
-			else if(s.charAt(i) == 'e')
-			{
-				answer = answer + s.charAt(i);
-			}
-			else if(s.charAt(i) == 'i')
-			{
-				answer = answer + s.charAt(i);
-			}
-			else if(s.charAt(i) == 'o')
-			{
-				answer = answer + s.charAt(i);
-			}
-			else if(s.charAt(i) == 'u')
-			{
-				answer = answer + s.charAt(i);
-			}
-			else
-			{
-				answer = answer;
-			}
-		}
-		System.out.println(answer);
-		return answer;
-		
+		return Driver.removeChars(s, "bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ");
 	}
 		
 	//returns a new String with all of the numbers
@@ -91,20 +67,7 @@ public class Driver
 	//"he11o" -> heo
 	static String removeDigits(String s)
 	{
-		String answer = "";
-		for(int i = 0; i < s.length(); i++)
-		{
-			if(s.charAt(i) >= '0' && s.charAt(i) <= '9')
-			{
-				answer = answer;
-			}
-			else
-			{
-				answer = answer + s.charAt(i);
-			}
-		}
-		System.out.println(answer);	
-		return answer;
+		return Driver.removeChars(s, "0123456789");
 	}
 		
 	//return the first occurence in s where c is found or -1 if 
