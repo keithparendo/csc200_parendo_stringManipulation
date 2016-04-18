@@ -4,9 +4,29 @@ public class Driver
 	public static void main(String[] args)
 	{
 		String s = "1011";
-		System.out.println(Driver.binaryToInteger(s));
+		int i = 2989;
+		System.out.println(Driver.decimalToBase(i,16));	
 	}
 	
+	static String decimalToBase(int i, int radix)
+	{
+		int decimalNum = i;
+		String answer = "";
+		while(decimalNum > 0)
+		{
+			answer = Driver.intToChar(decimalNum%radix) + answer;
+			decimalNum = decimalNum / radix;
+			//System.out.println(decimalNum);
+			//System.out.println(answer);
+			
+		}
+	return answer;
+	}
+	static char intToChar(int i)
+	{
+	String s = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	return s.charAt(i);
+	}
 	//this guy should take a String representation of a binary number
 	//as a parameter and return as a int the decimal equivalent
 	//"1011" -> 11
