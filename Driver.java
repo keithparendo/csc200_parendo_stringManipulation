@@ -3,9 +3,17 @@ public class Driver
 {
 	public static void main(String[] args)
 	{
-		String s = "1011";
-		int i = 2989;
-		System.out.println(Driver.decimalToBase(i,16));	
+		String s = "Hello World";
+		System.out.println(Driver.stringToCharArray(s));
+	}
+	static char[] stringToCharArray(String s)
+	{
+		char[] charArray = new char[s.length()];
+		for(int i=0; i<s.length(); i++)
+		{
+			charArray[i]= s.charAt(i);	
+		}
+		return charArray;
 	}
 	
 	static String decimalToBase(int i, int radix)
@@ -16,9 +24,6 @@ public class Driver
 		{
 			answer = Driver.intToChar(decimalNum%radix) + answer;
 			decimalNum = decimalNum / radix;
-			//System.out.println(decimalNum);
-			//System.out.println(answer);
-			
 		}
 	return answer;
 	}
