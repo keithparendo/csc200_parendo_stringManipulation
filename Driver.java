@@ -1,48 +1,176 @@
+import java.util.Random;
+
 
 public class Driver 
 {
 	public static void main(String[] args)
 	{
-		String s = "Hello World";
-		System.out.println(Driver.stringToCharArray(s));
-	}
-	static char[] stringToCharArray(String s)
-	{
-		char[] charArray = new char[s.length()];
-		for(int i=0; i<s.length(); i++)
-		{
-			charArray[i]= s.charAt(i);	
-		}
-		return charArray;
+		int[] arrayOfNumbers = new int[10];
+		Driver.fillArrayWithRandomInts(arrayOfNumbers);
+		Driver.printIntArray(arrayOfNumbers);
+		Driver.sortArray(arrayOfNumbers);
+		Driver.printIntArray(arrayOfNumbers);
 	}
 	
-	static String decimalToBase(int i, int radix)
+	static void sortArray(int[] ar)
 	{
-		int decimalNum = i;
-		String answer = "";
-		while(decimalNum > 0)
+		for(int a = 0; a<ar.length; a++)
 		{
-			answer = Driver.intToChar(decimalNum%radix) + answer;
-			decimalNum = decimalNum / radix;
+			for(int b = 0; b < ar.length; b++)
+			{
+				if(ar[a] > ar[b])
+				{
+					int temp = ar[b];
+					ar [b] = ar[a];
+					ar [a] = temp;
+				}
+			}
 		}
-	return answer;
 	}
-	static char intToChar(int i)
+	
+	static void fillArrayWithRandomInts(int[] ar)
 	{
-	String s = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	return s.charAt(i);
+		Random r = new Random();
+		for(int i = 0; i < ar.length; i++)
+		{
+			ar[i] = r.nextInt(101);
+		}
 	}
+	
+	static void printIntArray(int[] ar)
+	{
+		for(int i = 0; i < ar.length; i++)
+		{
+			System.out.print(ar[i] + " ");
+		}
+		System.out.println();
+	}
+	
+	static String charArrayToString(char[] ar)
+	{
+		String answer = "";
+		for(int i = 0; i < ar.length; i++)
+		{
+			answer += ar[i];
+		}
+		return answer;
+	}
+	
+	static char[] stringToCharArray(String s)
+	{
+		char[] ar = new char[s.length()];
+		for(int i = 0; i < s.length(); i++)
+		{
+			ar[i] = s.charAt(i);
+		}
+		return ar;
+	}
+	
+	static String substring(String s, int beginPos, int endPos)
+	{
+		String answer = "";
+		for(int i = beginPos; i < endPos; i++)
+		{
+			answer += s.charAt(i);
+		}
+		return answer;
+	}
+	
+	static String substring(String s, int pos)
+	{
+		String answer = "";
+		for(int i = pos; i < s.length(); i++)
+		{
+			answer += s.charAt(i);
+			//answer = answer + s.charAt(i)
+		}
+		return answer;
+	}
+	
+	static char int2Char(int num)
+	{
+		String map = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		return map.charAt(num);
+	}
+	
+	static String decimalToBase(int dec, int radix)
+	{
+		String answer = "";
+		while(dec != 0)
+		{
+			answer =  Driver.int2Char(dec % radix) + answer;
+			dec /= radix;
+		}
+		return answer;
+	}
+	
+	static String reverse(String s)
+	{
+		String answer = "";
+		for(int i = s.length()-1; i >= 0; i--)
+		{
+			answer += s.charAt(i);
+		}
+		return answer;
+	}
+	
+	static int baseToInteger(String s, int radix)
+	{
+		int place = 1;
+		int total = 0;
+		char currChar;
+		
+		for(int i = s.length()-1; i >= 0; i--)
+		{
+			currChar = s.charAt(i);
+			total += (Driver.charToInt(currChar) * place);
+			place *= radix;
+		}
+		return total;
+	}
+	
+	static int hexToInteger(String hex)
+	{
+		int place = 1;
+		int total = 0;
+		char currChar;
+		
+		for(int i = hex.length()-1; i >= 0; i--)
+		{
+			currChar = hex.charAt(i);
+			total += (Driver.charToInt(currChar) * place);
+			place *= 16;
+		}
+		return total;
+	}
+	
+	static int octalToInteger(String oct)
+	{
+		int place = 1;
+		int total = 0;
+		char currChar;
+		
+		for(int i = oct.length()-1; i >= 0; i--)
+		{
+			currChar = oct.charAt(i);
+			total += (Driver.charToInt(currChar) * place);
+			place *= 8;
+		}
+		return total;
+	}
+	
 	//this guy should take a String representation of a binary number
 	//as a parameter and return as a int the decimal equivalent
 	//"1011" -> 11
 	static int binaryToInteger(String bin)
-	{	
-		int place = 1;		
+	{
+		int place = 1;
 		int total = 0;
-		
+		char currChar;
 		for(int i = bin.length()-1; i >= 0; i--)
 		{
-			if(bin.charAt(i) == '1')
+			currChar = bin.charAt(i);
+			if(currChar == '1')
 			{
 				total += place;
 			}
@@ -54,7 +182,7 @@ public class Driver
 	//return the integer version of the char parameter
 	static int charToInt(char c)
 	{
-		return "0123456789".indexOf(c);
+		return "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(c);
 	}
 	
 	//Converts s, which is a string representation
